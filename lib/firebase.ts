@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -17,3 +17,15 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
 export const auth = getAuth(app)
 export const storage = getStorage(app)
+
+export function syncAuthCookies() {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const token = await user.getIdToken()
+
+      document.cookie = `auth-token=${token}; path=/`
+    } else {
+      document.cookie = `auth-token=; path=/; max-age=0`
+    }
+  })
+}
