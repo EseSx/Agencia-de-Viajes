@@ -1,16 +1,20 @@
+"use client"
+
 import { db } from "@/lib/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import Image from "next/image";
-import { useEffect } from "react";
-
-useEffect(() => {
-  const unsub = onSnapshot(collection(db, "packages"), (snap) => {
-    setPackages(snap.dogs.map(d => ({ id: d.id, ...d.data()})))
-  })
-  return unsub
-}, [])
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [packages, setPackages] = useState([])
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "packages"), (snap) => {
+      setPackages(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return unsub;
+  }, []);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
