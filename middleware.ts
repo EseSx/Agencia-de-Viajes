@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest){
@@ -24,5 +23,5 @@ export function middleware(request: NextRequest){
 }
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/admin/:path*", "/login "],
+    matcher: ["/dashboard/:path*", "/admin/:path*"],
 }
