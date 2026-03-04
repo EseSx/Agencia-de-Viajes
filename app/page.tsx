@@ -1,4 +1,14 @@
+import { db } from "@/lib/firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 import Image from "next/image";
+import { useEffect } from "react";
+
+useEffect(() => {
+  const unsub = onSnapshot(collection(db, "packages"), (snap) => {
+    setPackages(snap.dogs.map(d => ({ id: d.id, ...d.data()})))
+  })
+  return unsub
+}, [])
 
 export default function Home() {
   return (
