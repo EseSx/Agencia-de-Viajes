@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test";
 // tests/auth.spec.ts
 test("usuario puede registrarse", async ({ page }) => {
   await page.goto("/login");
-  await page.fill('[name="email"]', "test@test.com");
-  await page.fill('[name="password"]', "123456");
+  await page.fill('#email', "test@test.com");
+  await page.fill('#password', "123456");
   await page.click('button[type="submit"]');
   await expect(page).toHaveURL("/dashboard");
 });
