@@ -87,7 +87,7 @@ export default function AdminPage() {
         <input
           placeholder="Nombre del paquete"
           value={form.name}
-          onChange={(e) => setForm({ ...form, destination: e.target.value })}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
           required
           type="text"
           className="w-full px-3 py-2 border rounded-md"
